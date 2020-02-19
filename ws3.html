@@ -1,0 +1,145 @@
+<html>
+    <style>
+body {
+	font-family: "Trebuchet MS", Helvetica, sans-serif;
+	color: #333333;
+}
+
+div {
+    width: 200px;
+    height: 100px;
+    border: 1px solid black;
+}
+table, tr, td{
+  border: 1px solid gray;
+  width: 50%;
+}
+
+#coordinates {
+ width: 200px;
+ height: 100px;
+ border: 1px solid black;
+        }
+
+</style>
+    <head>
+    </head>
+    
+    <body>
+        
+        <button onclick="dateAlert()">Button 1</button>
+        <button onclick="showTable()">Button 2</button>
+        
+        <p id="tableb"></p>
+
+        <h2 onmouseover="mouseon()" onmouseout="mouseout()">Excersice 2</h2>
+        <br/>
+        <textarea id="textdata" onfocusin="fokus()" onkeydown="calc()"></textarea>
+        <p id="num"></p>
+        <button id="sendb" onclick="send()">Send me</button>
+        <br> <br>
+        <div onmousemove="coor(event);" id="coordinates"></div>
+        <br>
+        <button onclick="getLocation()">Get location</button>
+        <button id="showl" onclick="myMap()">Show location</button>
+        <p id="getl"></p>
+        
+    </body>
+    <script>
+        
+        var c=0;
+        
+        var persons = ["Nyssa P. Skinner", "593-4241 Lacus, St.","Cape Verde", 
+	       "Camilla F. Strickland","391-2150 Ac Rd.","Andorra",
+	       "Reagan U. Andrews", "P.O. Box 472, 2271 Mauris Ave","Faroe Islands",
+	       "Kelsey D. Clark", "P.O. Box 866, 7793 Aliquet Ave","Bulgaria" ];
+        
+        function dateAlert() {
+            var pvm = new Date();
+            alert("You clicked me on " + pvm);
+        }
+        
+        function showTable() {
+            //document.getElementById("tableb").innerHTML = '<table border="1"><tr>';
+            document.write('<table border="1"><tr>');
+
+            for (var i=0; i < persons.length; i++){
+            // Change the line after three data items
+                if (i % 3 == 0) {
+                //document.getElementById("tableb").innerHTML = "</tr><tr>";
+                document.write("</tr><tr>");
+                } // end if
+            // output the data
+                document.write("<td>"+persons[i]+"</td>" );
+            //document.getElementById("tableb").innerHTML = "<td>"+persons[i]+"</td>";
+
+            }
+           // document.getElementById("tableb").innerHTML = "</table>";
+            document.write("</table>");
+        }
+            
+
+        function mouseon() {
+            console.log("Stepped over my a mouse!");
+        }
+        
+        function mouseout() {
+            console.log("Bye bye mouse!");
+        }
+        
+        function fokus() {
+            document.getElementById("textdata").innerHTML = "Please fill in the form.";
+        }
+        
+        function calc() {
+            c++;
+            document.getElementById("num").innerHTML = c;
+        }
+        
+        sendb.addEventListener("click", send());
+        
+        document.getElementById("coordinates").addEventListener("click", coor());
+                                                                
+        function coor() {
+            var x = event.clientX;     // Get the horizontal coordinate
+            var y = event.clientY;     // Get the vertical coordinate
+            var coor = "X coords: " + x + ", Y coords: " + y;
+            document.getElementById("coordinates").innerHTML =coor;
+        }
+        
+       //sends out an alert everytime the site is loaded?
+        function send() {
+            var text = document.getElementById("textdata").value;  
+            if (text.length == 0 || c== 0) {
+                alert("You didn't fill the form!");
+            }
+            else {
+                alert("Thank you!");
+            }
+            
+            }
+
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else { 
+            document.getElementById("getl").innerHTML = "Geolocation is not supported by this browser.";
+            }
+        }
+
+        function showPosition(position) {
+            document.getElementById("getl").innerHTML = "Latitude: " + position.coords.latitude + 
+            "<br>Longitude: " + position.coords.longitude;
+        }
+        
+        /*
+        function myMap() {
+            var mapProp= {
+            center:new google.maps.LatLng(51.508742,-0.120850), zoom:5,
+            };
+            var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+            } */
+        
+    </script>
+
+</html>
